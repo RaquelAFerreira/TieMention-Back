@@ -4,7 +4,7 @@ namespace TieMention.Domain.Interfaces;
 
 public interface IMentionRepository
 {
-    Task<Mention?> GetByIdAsync(int id);
+    Task<Mention?> GetByIdAsync(Guid id);
     Task<IEnumerable<Mention>> GetAllAsync();
     Task AddAsync(Mention mention);
     Task UpdateAsync(Mention mention);

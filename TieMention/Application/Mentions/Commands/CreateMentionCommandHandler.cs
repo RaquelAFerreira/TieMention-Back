@@ -15,7 +15,7 @@ public class CreateMentionCommandHandler : IRequestHandler<CreateMentionCommand,
 
     public async Task<Mention> Handle(CreateMentionCommand request, CancellationToken cancellationToken)
     {
-        var mention = new Mention { Name = request.Name };
+        var mention = new Mention { Description = request.Description };
 
         await _repository.AddAsync(mention);
         await _repository.SaveChangesAsync();

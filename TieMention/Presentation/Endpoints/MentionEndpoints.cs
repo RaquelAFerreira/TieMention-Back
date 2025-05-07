@@ -11,7 +11,7 @@ public static class MentionEndpoints
     {
         var group = app.MapGroup("/api/mentions");
 
-        group.MapGet("/{id}", async (int id, IMediator mediator) =>
+        group.MapGet("/{id}", async (Guid id, IMediator mediator) =>
         {
             var mention = await mediator.Send(new GetMentionQuery(id));
             return mention is not null ? Results.Ok(mention) : Results.NotFound();

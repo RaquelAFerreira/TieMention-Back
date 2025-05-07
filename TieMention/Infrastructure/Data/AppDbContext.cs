@@ -10,7 +10,7 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<Mention> Mentions { get; set; }
+    public DbSet<Mention> Mention { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

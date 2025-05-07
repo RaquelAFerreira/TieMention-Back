@@ -14,29 +14,29 @@ public class MentionRepository : IMentionRepository
         _context = context;
     }
 
-    public async Task<Mention?> GetByIdAsync(int id)
+    public async Task<Mention?> GetByIdAsync(Guid id)
     {
-        return await _context.Mentions.FindAsync(id);
+        return await _context.Mention.FindAsync(id);
     }
 
     public async Task<IEnumerable<Mention>> GetAllAsync()
     {
-        return await _context.Mentions.ToListAsync();
+        return await _context.Mention.ToListAsync();
     }
 
     public async Task AddAsync(Mention mention)
     {
-        await _context.Mentions.AddAsync(mention);
+        await _context.Mention.AddAsync(mention);
     }
 
     public async Task UpdateAsync(Mention mention)
     {
-        _context.Mentions.Update(mention);
+        _context.Mention.Update(mention);
     }
 
     public async Task DeleteAsync(Mention mention)
     {
-        _context.Mentions.Remove(mention);
+        _context.Mention.Remove(mention);
     }
 
     public async Task SaveChangesAsync()
