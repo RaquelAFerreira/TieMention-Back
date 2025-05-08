@@ -1,10 +1,12 @@
 using MediatR;
 using TieMention.Domain.Entities;
 using TieMention.Domain.Interfaces;
+using TieMention.Application.Dtos.Mentions;
+using TieMention.Application.Extensions;
 
 namespace TieMention.Application.Mentions.Queries;
 
-public class GetMentionQueryHandler : IRequestHandler<GetMentionQuery, Mention?>
+public class GetMentionQueryHandler : IRequestHandler<GetMentionQuery, MentionGetDto?>
 {
     private readonly IMentionRepository _repository;
 
@@ -13,8 +15,13 @@ public class GetMentionQueryHandler : IRequestHandler<GetMentionQuery, Mention?>
         _repository = repository;
     }
 
-    public async Task<Mention?> Handle(GetMentionQuery request, CancellationToken cancellationToken)
+    public async Task<MentionGetDto?> Handle(GetMentionQuery request, CancellationToken cancellationToken)
     {
-        return await _repository.GetByIdAsync(request.Id);
+        var mention = await _repository.GetByIdAsync(request.Id);
+        
+        if (mention == null)
+            return null;
+
+        return mention?.ToMentionGetDto();
     }
 }
