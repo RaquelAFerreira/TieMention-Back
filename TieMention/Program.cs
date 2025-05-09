@@ -11,6 +11,8 @@ builder.Services
     .AddInfrastructure(builder.Configuration)
     .AddPresentation();
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 // Adicione os serviços de autenticação/authorização se necessário
 builder.Services.AddAuthorization(); // ← Solução para o erro
 
