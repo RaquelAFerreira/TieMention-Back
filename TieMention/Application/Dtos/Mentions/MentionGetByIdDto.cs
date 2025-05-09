@@ -1,9 +1,6 @@
-using MediatR;
-using TieMention.Domain.Entities;
-
 namespace TieMention.Application.Dtos.Mentions;
 
-public class MentionGetDto
+public class MentionGetByIdDto
 {
     public string Description { get; set; } = string.Empty;
 

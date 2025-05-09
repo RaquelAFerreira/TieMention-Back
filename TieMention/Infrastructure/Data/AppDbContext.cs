@@ -11,6 +11,8 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Mention> Mention { get; set; }
+    
+    public DbSet<Piece> Piece { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

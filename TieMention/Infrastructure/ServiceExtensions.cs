@@ -15,6 +15,7 @@ public static class ServiceExtensions
             options.UseNpgsql(configuration.GetConnectionString("Default")));
 
         services.AddScoped<IMentionRepository, MentionRepository>();
+        services.AddScoped<IPieceRepository, PieceRepository>();
 
         return services;
     }

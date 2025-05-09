@@ -1,7 +1,7 @@
 using TieMention.Application;
 using TieMention.Infrastructure;
 using TieMention.Presentation;
-
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +10,8 @@ builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration)
     .AddPresentation();
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 // Adicione os serviços de autenticação/authorização se necessário
 builder.Services.AddAuthorization(); // ← Solução para o erro

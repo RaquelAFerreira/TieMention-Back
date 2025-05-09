@@ -6,9 +6,9 @@ namespace TieMention.Application.Extensions;
 
 public static class MentionExtensions
 {
-    public static MentionGetDto ToMentionGetDto(this Mention mention)
+    public static MentionGetByIdDto ToMentionGetByIdDto(this Mention mention)
     {
-        return new MentionGetDto
+        return new MentionGetByIdDto
         {
             MentionedPiece = mention.MentionedPiece,
             MentioningPiece = mention.MentioningPiece,
