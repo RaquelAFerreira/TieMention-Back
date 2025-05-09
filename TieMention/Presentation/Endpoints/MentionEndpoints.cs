@@ -9,7 +9,7 @@ public static class MentionEndpoints
 {
     public static void MapMentionEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/mentions");
+        var group = app.MapGroup("/api/mention");
 
         group.MapGet("/{id}", async (Guid id, IMediator mediator) =>
         {
@@ -20,7 +20,7 @@ public static class MentionEndpoints
         group.MapPost("/", async ([FromBody] CreateMentionCommand command, IMediator mediator) =>
         {
             var mention = await mediator.Send(command);
-            return Results.Created($"/api/mentions/{mention.Id}", mention);
+            return Results.Created($"/api/mention/{mention.Id}", mention);
         });
     }
 }
