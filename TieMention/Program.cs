@@ -1,7 +1,7 @@
 using TieMention.Application;
 using TieMention.Infrastructure;
 using TieMention.Presentation;
-
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 

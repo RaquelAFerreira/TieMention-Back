@@ -22,6 +22,6 @@ public class GetMentionQueryHandler : IRequestHandler<GetMentionQuery, MentionGe
         if (mention == null)
             return null;
 
-        return mention?.ToMentionGetByIdDto();
+        return mention.ToMentionGetByIdDto();
     }
 }

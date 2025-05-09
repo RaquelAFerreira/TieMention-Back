@@ -15,6 +15,7 @@ public static class ServiceExtensions
     public static WebApplication MapEndpoints(this WebApplication app)
     {
         app.MapMentionEndpoints();
+        app.MapPieceEndpoints();
         
         if (app.Environment.IsDevelopment())
         {
