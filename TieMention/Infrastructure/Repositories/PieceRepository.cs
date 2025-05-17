@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using TieMention.Domain.Entities;
 using TieMention.Domain.Interfaces;
 using TieMention.Infrastructure.Data;
+using TieMention.Application.Dtos.Pieces;
+using TieMention.Application.Dtos;
 
 namespace TieMention.Infrastructure.Repositories;
 
@@ -42,5 +44,38 @@ public class PieceRepository : IPieceRepository
     public async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<PaginatedResult<PieceGetFilterDto>> GetPagedAsync(string? name, int page, int pageSize, CancellationToken cancellationToken)
+    {
+        var query = _context.Piece.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(name))
+            query = query.Where(c => EF.Functions.ILike(c.Name, $"%{name}%"));
+
+        var totalItems = await query.CountAsync(cancellationToken);
+
+        var items = await query
+            .OrderBy(c => c.Name)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(
+                c =>
+                    new PieceGetFilterDto
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        Slug = c.Slug
+                    }
+            )
+            .ToListAsync(cancellationToken);
+
+        return new PaginatedResult<PieceGetFilterDto>
+        {
+            Page = page,
+            PageSize = pageSize,
+            TotalItems = totalItems,
+            Items = items
+        };
     }
 }

@@ -14,5 +14,4 @@ public class Mention
     public Guid MentionedPiece { get; set; }
 
     public bool IsApproved { get; set; } = false;
-
 }

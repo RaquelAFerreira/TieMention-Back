@@ -23,5 +23,11 @@ public static class PieceEndpoints
             return Results.Created($"/api/piece/{piece.Id}", piece);
         });
 
+        group.MapGet("/list", async ([AsParameters] GetPiecesQuery query, IMediator mediator) =>
+        {
+            var piece = await mediator.Send(query);
+            return piece is not null ? Results.Ok(piece) : Results.NotFound();
+        });
+
     }
 }
