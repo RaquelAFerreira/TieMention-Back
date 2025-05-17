@@ -1,4 +1,6 @@
 using TieMention.Domain.Entities;
+using TieMention.Application.Dtos.Pieces;
+using TieMention.Application.Dtos;
 
 namespace TieMention.Domain.Interfaces;
 
@@ -10,4 +12,5 @@ public interface IPieceRepository
     Task UpdateAsync(Piece piece);
     Task DeleteAsync(Piece piece);
     Task SaveChangesAsync();
+    Task<PaginatedResult<PieceGetFilterDto>> GetPagedAsync(string? name, int page, int pageSize, CancellationToken cancellationToken);
 }
