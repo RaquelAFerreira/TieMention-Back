@@ -48,26 +48,30 @@ public class PieceRepository : IPieceRepository
 
     public async Task<PaginatedResult<PieceGetFilterDto>> GetPagedAsync(string? name, int page, int pageSize, CancellationToken cancellationToken)
     {
-        var query = _context.Piece.AsQueryable();
+        var query =
+            from piece in _context.Piece
+            join image in _context.Image
+                on new { PieceId = piece.Id, Order = 1 } equals new { image.PieceId, image.Order }
+                into images
+            from img in images.DefaultIfEmpty()
+            where string.IsNullOrWhiteSpace(name) || EF.Functions.ILike(piece.Name, $"%{name}%")
+            orderby piece.Name
+            select new PieceGetFilterDto
+            {
+                Id = piece.Id,
+                Name = piece.Name,
+                Slug = piece.Slug,
+                ReleaseYear = piece.ReleaseYear,
+                Image = img != null ? img.Content : null
+            };
 
-        if (!string.IsNullOrWhiteSpace(name))
-            query = query.Where(c => EF.Functions.ILike(c.Name, $"%{name}%"));
-
+        // Obtendo o total de itens (com filtro aplicado)
         var totalItems = await query.CountAsync(cancellationToken);
 
+        // Aplicando paginação
         var items = await query
-            .OrderBy(c => c.Name)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .Select(
-                c =>
-                    new PieceGetFilterDto
-                    {
-                        Id = c.Id,
-                        Name = c.Name,
-                        Slug = c.Slug
-                    }
-            )
             .ToListAsync(cancellationToken);
 
         return new PaginatedResult<PieceGetFilterDto>

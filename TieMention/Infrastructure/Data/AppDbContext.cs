@@ -14,6 +14,8 @@ public class AppDbContext : DbContext
     
     public DbSet<Piece> Piece { get; set; }
 
+    public DbSet<Image> Image { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Configurações do modelo
