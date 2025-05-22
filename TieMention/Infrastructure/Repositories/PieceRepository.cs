@@ -62,6 +62,7 @@ public class PieceRepository : IPieceRepository
                 Name = piece.Name,
                 Slug = piece.Slug,
                 ReleaseYear = piece.ReleaseYear,
+                Description = piece.Description,
                 Image = img != null ? img.Content : null
             };
 
