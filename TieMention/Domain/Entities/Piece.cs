@@ -17,5 +17,4 @@ public class Piece
     public string ReleaseYear { get; set; } = string.Empty;
 
     public string Slug { get; set; } = string.Empty;
-
 }
