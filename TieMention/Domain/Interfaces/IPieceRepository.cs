@@ -12,5 +12,8 @@ public interface IPieceRepository
     Task UpdateAsync(Piece piece);
     Task DeleteAsync(Piece piece);
     Task SaveChangesAsync();
-    Task<PaginatedResult<PieceGetFilterDto>> GetPagedAsync(string? name, int page, int pageSize, CancellationToken cancellationToken);
+
+    Task<PieceGetByIdDto?> GetDetailsByIdAsync(Guid id, CancellationToken cancellationToken);
+
+    Task<PaginatedResult<PieceGetByIdDto>> GetPagedAsync(string? name, int page, int pageSize, CancellationToken cancellationToken);
 }

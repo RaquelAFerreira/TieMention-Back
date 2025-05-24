@@ -46,7 +46,7 @@ public class PieceRepository : IPieceRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<PaginatedResult<PieceGetFilterDto>> GetPagedAsync(string? name, int page, int pageSize, CancellationToken cancellationToken)
+    public async Task<PieceGetByIdDto?> GetDetailsByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var query =
             from piece in _context.Piece
@@ -54,15 +54,48 @@ public class PieceRepository : IPieceRepository
                 on new { PieceId = piece.Id, Order = 1 } equals new { image.PieceId, image.Order }
                 into images
             from img in images.DefaultIfEmpty()
-            where string.IsNullOrWhiteSpace(name) || EF.Functions.ILike(piece.Name, $"%{name}%")
-            orderby piece.Name
-            select new PieceGetFilterDto
+            join category in _context.Category
+                on new { Id = piece.Category } equals new { category.Id }
+                into categorys
+            from ctg in categorys.DefaultIfEmpty()
+            where piece.Id == id  // Filtro pelo ID da peça
+            select new PieceGetByIdDto
             {
                 Id = piece.Id,
                 Name = piece.Name,
                 Slug = piece.Slug,
                 ReleaseYear = piece.ReleaseYear,
                 Description = piece.Description,
+                Category = ctg.Description,
+                Image = img != null ? img.Content : null
+            };
+
+        // Obtendo um único registro
+        return await query.FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<PaginatedResult<PieceGetByIdDto>> GetPagedAsync(string? name, int page, int pageSize, CancellationToken cancellationToken)
+    {
+        var query =
+            from piece in _context.Piece
+            join image in _context.Image
+                on new { PieceId = piece.Id, Order = 1 } equals new { image.PieceId, image.Order }
+                into images
+            from img in images.DefaultIfEmpty()
+            join category in _context.Category
+                on new { Id = piece.Category } equals new { category.Id }
+                into categorys
+            from ctg in categorys.DefaultIfEmpty()
+            where string.IsNullOrWhiteSpace(name) || EF.Functions.ILike(piece.Name, $"%{name}%")
+            orderby piece.Name
+            select new PieceGetByIdDto
+            {
+                Id = piece.Id,
+                Name = piece.Name,
+                Slug = piece.Slug,
+                ReleaseYear = piece.ReleaseYear,
+                Description = piece.Description,
+                Category = ctg.Description,
                 Image = img != null ? img.Content : null
             };
 
@@ -75,7 +108,7 @@ public class PieceRepository : IPieceRepository
             .Take(pageSize)
             .ToListAsync(cancellationToken);
 
-        return new PaginatedResult<PieceGetFilterDto>
+        return new PaginatedResult<PieceGetByIdDto>
         {
             Page = page,
             PageSize = pageSize,

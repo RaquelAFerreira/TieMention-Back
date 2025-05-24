@@ -17,6 +17,7 @@ public static class ServiceExtensions
         services.AddScoped<IMentionRepository, MentionRepository>();
         services.AddScoped<IPieceRepository, PieceRepository>();
         services.AddScoped<IImageRepository, ImageRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         return services;
     }
