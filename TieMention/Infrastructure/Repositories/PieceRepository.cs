@@ -46,7 +46,7 @@ public class PieceRepository : IPieceRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<PieceGetByIdDto?> GetDetailsByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<PieceGetByIdDto?> GetDetailsByIdAsync(String slug, CancellationToken cancellationToken)
     {
         var query =
             from piece in _context.Piece
@@ -58,7 +58,7 @@ public class PieceRepository : IPieceRepository
                 on new { Id = piece.Category } equals new { category.Id }
                 into categorys
             from ctg in categorys.DefaultIfEmpty()
-            where piece.Id == id  // Filtro pelo ID da peça
+            where piece.Slug == slug  // Filtro pelo ID da peça
             select new PieceGetByIdDto
             {
                 Id = piece.Id,

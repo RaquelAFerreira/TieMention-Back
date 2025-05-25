@@ -17,6 +17,6 @@ public class GetPieceQueryHandler : IRequestHandler<GetPieceQuery, PieceGetByIdD
 
     public async Task<PieceGetByIdDto?> Handle(GetPieceQuery request, CancellationToken cancellationToken)
     {
-        return await _repository.GetDetailsByIdAsync(request.Id, cancellationToken);
+        return await _repository.GetDetailsByIdAsync(request.Slug, cancellationToken);
     }
 }
