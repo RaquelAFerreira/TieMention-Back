@@ -12,10 +12,10 @@ public static class PieceEndpoints
         var group = app.MapGroup("/api/piece");
 
         _ = group.MapGet(
-            "/{id}",
-            async (Guid id, IMediator mediator) =>
+            "/{slug}",
+            async (String slug, IMediator mediator) =>
             {
-                var piece = await mediator.Send(new GetPieceQuery(id));
+                var piece = await mediator.Send(new GetPieceQuery(slug));
                 return piece is not null ? Results.Ok(piece) : Results.NotFound();
             }
         );
