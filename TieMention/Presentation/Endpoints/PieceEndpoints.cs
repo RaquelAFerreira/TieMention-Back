@@ -39,10 +39,10 @@ public static class PieceEndpoints
         );
 
         _ = group.MapGet(
-            "/mentioners",
-            async ([AsParameters] GetMentionerPiecesQuery query, IMediator mediator) =>
+            "/mentioners/{id}",
+            async (Guid id, IMediator mediator) =>
             {
-                var piece = await mediator.Send(query);
+                var piece = await mediator.Send(new GetMentionerPiecesQuery(id));
                 return piece is not null ? Results.Ok(piece) : Results.NotFound();
             }
         );
