@@ -6,6 +6,6 @@ namespace TieMention.Application.Mentions.Commands;
 public record CreateMentionCommand(
     string Description,
     bool IsApproved,
-    Guid MentioningPiece,
+    Guid MentionerPiece,
     Guid MentionedPiece
 ) : IRequest<Mention>;

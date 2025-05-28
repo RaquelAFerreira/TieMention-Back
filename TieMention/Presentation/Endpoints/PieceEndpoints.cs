@@ -37,5 +37,14 @@ public static class PieceEndpoints
                 return piece is not null ? Results.Ok(piece) : Results.NotFound();
             }
         );
+
+        _ = group.MapGet(
+            "/mentioners",
+            async ([AsParameters] GetMentionerPiecesQuery query, IMediator mediator) =>
+            {
+                var piece = await mediator.Send(query);
+                return piece is not null ? Results.Ok(piece) : Results.NotFound();
+            }
+        );
     }
 }

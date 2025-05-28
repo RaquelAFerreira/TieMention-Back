@@ -22,7 +22,7 @@ public class CreateMentionCommandHandler : IRequestHandler<CreateMentionCommand,
             UpdatedAt = DateTime.Now,
             Description = request.Description,
             IsApproved = request.IsApproved,
-            MentioningPiece = request.MentioningPiece,
+            MentionerPiece = request.MentionerPiece,
             MentionedPiece = request.MentionedPiece
         };
 
