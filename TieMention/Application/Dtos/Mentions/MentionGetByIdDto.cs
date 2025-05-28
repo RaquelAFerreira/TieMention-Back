@@ -4,7 +4,7 @@ public class MentionGetByIdDto
 {
     public string Description { get; set; } = string.Empty;
 
-    public Guid MentioningPiece { get; set; }
+    public Guid MentionerPiece { get; set; }
 
     public Guid MentionedPiece { get; set; }
 

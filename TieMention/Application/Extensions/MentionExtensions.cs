@@ -11,7 +11,7 @@ public static class MentionExtensions
         return new MentionGetByIdDto
         {
             MentionedPiece = mention.MentionedPiece,
-            MentioningPiece = mention.MentioningPiece,
+            MentionerPiece = mention.MentionerPiece,
             Description = mention.Description,
             IsApproved = mention.IsApproved
         };

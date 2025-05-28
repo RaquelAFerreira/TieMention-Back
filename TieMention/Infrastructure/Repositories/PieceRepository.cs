@@ -116,4 +116,55 @@ public class PieceRepository : IPieceRepository
             Items = items
         };
     }
+
+    public async Task<PieceGetByIdDto?> GetMentionedsAsync(String slug, CancellationToken cancellationToken)
+    {
+        var query =
+            from piece in _context.Piece
+            join image in _context.Image
+                on new { PieceId = piece.Id, Order = 1 } equals new { image.PieceId, image.Order }
+                into images
+            from img in images.DefaultIfEmpty()
+            join category in _context.Category
+                on new { Id = piece.Category } equals new { category.Id }
+                into categorys
+            from ctg in categorys.DefaultIfEmpty()
+            where piece.Slug == slug  // Filtro pelo ID da peça
+            select new PieceGetByIdDto
+            {
+                Id = piece.Id,
+                Name = piece.Name,
+                Slug = piece.Slug,
+                ReleaseYear = piece.ReleaseYear,
+                Description = piece.Description,
+                Category = ctg.Description,
+                Image = img != null ? img.Content : null
+            };
+
+        return await query.FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<List<PieceGetMentionDto>> GetMentionersAsync(Guid mentionedPieceId, CancellationToken cancellationToken)
+    {
+        var query =
+            from mention in _context.Mention
+            where mention.MentionedPiece == mentionedPieceId
+            join mentioner in _context.Piece on mention.MentionerPiece equals mentioner.Id
+            join image in _context.Image 
+                on new { PieceId = mentioner.Id, Order = 1 } 
+                equals new { image.PieceId, image.Order }
+                into images
+            from img in images.DefaultIfEmpty()
+            select new PieceGetMentionDto
+            {
+                Id = mention.Id,
+                Name = mentioner.Name,
+                ReleaseYear = mentioner.ReleaseYear,
+                MentionSlug = mention.Slug,
+                Image = img != null ? img.Content : null
+            };
+
+        return await query.ToListAsync(cancellationToken);
+    }
+
 }
