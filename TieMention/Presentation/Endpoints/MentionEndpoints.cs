@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TieMention.Application.Mentions.Commands;
 using TieMention.Application.Mentions.Queries;
+using TieMention.Application.Pieces.Queries;
 
 namespace TieMention.Presentation.Endpoints;
 
@@ -11,16 +12,22 @@ public static class MentionEndpoints
     {
         var group = app.MapGroup("/api/mention");
 
-        group.MapGet("/{id}", async (Guid id, IMediator mediator) =>
-        {
-            var mention = await mediator.Send(new GetMentionQuery(id));
-            return mention is not null ? Results.Ok(mention) : Results.NotFound();
-        });
+        group.MapGet(
+            "/{id}",
+            async (Guid id, IMediator mediator) =>
+            {
+                var mention = await mediator.Send(new GetMentionQuery(id));
+                return mention is not null ? Results.Ok(mention) : Results.NotFound();
+            }
+        );
 
-        group.MapPost("/", async ([FromBody] CreateMentionCommand command, IMediator mediator) =>
-        {
-            var mention = await mediator.Send(command);
-            return Results.Created($"/api/mention/{mention.Id}", mention);
-        });
+        group.MapPost(
+            "/",
+            async ([FromBody] CreateMentionCommand command, IMediator mediator) =>
+            {
+                var mention = await mediator.Send(command);
+                return Results.Created($"/api/mention/{mention.Id}", mention);
+            }
+        );
     }
 }

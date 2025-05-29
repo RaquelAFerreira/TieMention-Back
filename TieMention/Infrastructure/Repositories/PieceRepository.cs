@@ -157,7 +157,8 @@ public class PieceRepository : IPieceRepository
             from img in images.DefaultIfEmpty()
             select new PieceGetMentionDto
             {
-                Id = mention.Id,
+                IdMention = mention.Id,
+                IdPiece = mentioner.Id,
                 Name = mentioner.Name,
                 ReleaseYear = mentioner.ReleaseYear,
                 MentionSlug = mention.Slug,
