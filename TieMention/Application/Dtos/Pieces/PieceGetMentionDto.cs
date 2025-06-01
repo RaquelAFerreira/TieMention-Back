@@ -2,7 +2,9 @@ namespace TieMention.Application.Dtos.Pieces;
 
 public class PieceGetMentionDto
 {
-    public Guid Id { get; set; }
+    public Guid IdMention { get; set; }
+
+    public Guid IdPiece { get; set; }
 
     public string Name { get; set; } = default!;
 

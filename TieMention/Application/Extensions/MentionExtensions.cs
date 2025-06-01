@@ -6,14 +6,4 @@ namespace TieMention.Application.Extensions;
 
 public static class MentionExtensions
 {
-    public static MentionGetByIdDto ToMentionGetByIdDto(this Mention mention)
-    {
-        return new MentionGetByIdDto
-        {
-            MentionedPiece = mention.MentionedPiece,
-            MentionerPiece = mention.MentionerPiece,
-            Description = mention.Description,
-            IsApproved = mention.IsApproved
-        };
-    }
 }

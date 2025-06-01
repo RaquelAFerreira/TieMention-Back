@@ -6,7 +6,7 @@ using TieMention.Application.Extensions;
 
 namespace TieMention.Application.Mentions.Queries;
 
-public class GetMentionQueryHandler : IRequestHandler<GetMentionQuery, MentionGetByIdDto?>
+public class GetMentionQueryHandler : IRequestHandler<GetMentionQuery, MentionDetailsDto?>
 {
     private readonly IMentionRepository _repository;
 
@@ -15,13 +15,8 @@ public class GetMentionQueryHandler : IRequestHandler<GetMentionQuery, MentionGe
         _repository = repository;
     }
 
-    public async Task<MentionGetByIdDto?> Handle(GetMentionQuery request, CancellationToken cancellationToken)
+    public async Task<MentionDetailsDto?> Handle(GetMentionQuery request, CancellationToken cancellationToken)
     {
-        var mention = await _repository.GetByIdAsync(request.Id);
-        
-        if (mention == null)
-            return null;
-
-        return mention.ToMentionGetByIdDto();
+        return await _repository.GetMentionByIdAsync(request.Slug, cancellationToken);
     }
 }
