@@ -1,4 +1,6 @@
 using TieMention.Domain.Entities;
+using TieMention.Application.Dtos.Mentions;
+
 
 namespace TieMention.Domain.Interfaces;
 
@@ -10,4 +12,6 @@ public interface IMentionRepository
     Task UpdateAsync(Mention mention);
     Task DeleteAsync(Mention mention);
     Task SaveChangesAsync();
+
+    Task<MentionDetailsDto?> GetMentionByIdAsync(String Slug, CancellationToken cancellationToken);
 }

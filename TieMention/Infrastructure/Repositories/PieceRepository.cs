@@ -58,7 +58,7 @@ public class PieceRepository : IPieceRepository
                 on new { Id = piece.Category } equals new { category.Id }
                 into categorys
             from ctg in categorys.DefaultIfEmpty()
-            where piece.Slug == slug  // Filtro pelo ID da peça
+            where piece.Slug == slug 
             select new PieceGetByIdDto
             {
                 Id = piece.Id,
@@ -99,10 +99,8 @@ public class PieceRepository : IPieceRepository
                 Image = img != null ? img.Content : null
             };
 
-        // Obtendo o total de itens (com filtro aplicado)
         var totalItems = await query.CountAsync(cancellationToken);
 
-        // Aplicando paginação
         var items = await query
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
@@ -129,7 +127,7 @@ public class PieceRepository : IPieceRepository
                 on new { Id = piece.Category } equals new { category.Id }
                 into categorys
             from ctg in categorys.DefaultIfEmpty()
-            where piece.Slug == slug  // Filtro pelo ID da peça
+            where piece.Slug == slug 
             select new PieceGetByIdDto
             {
                 Id = piece.Id,
