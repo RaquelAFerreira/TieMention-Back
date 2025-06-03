@@ -91,6 +91,7 @@ public class MentionRepository : IMentionRepository
                     Id = mentioned.Id,
                     Name = mentioned.Name,
                     Slug = mentioned.Slug,
+                    ReleaseYear = mentioned.ReleaseYear,
                     Category = mentionedCategory.Description,
                     Image = mentionedImg != null ? mentionedImg.Content : null
                 },
@@ -99,6 +100,7 @@ public class MentionRepository : IMentionRepository
                     Id = mentioner.Id,
                     Name = mentioner.Name,
                     Slug = mentioner.Slug,
+                    ReleaseYear = mentioner.ReleaseYear,
                     Category = mentionerCategory.Description,
                     Image = mentionerImg != null ? mentionerImg.Content : null
                 }
