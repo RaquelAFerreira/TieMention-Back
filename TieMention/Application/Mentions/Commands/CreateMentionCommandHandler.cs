@@ -13,7 +13,10 @@ public class CreateMentionCommandHandler : IRequestHandler<CreateMentionCommand,
         _repository = repository;
     }
 
-    public async Task<Mention> Handle(CreateMentionCommand request, CancellationToken cancellationToken)
+    public async Task<Mention> Handle(
+        CreateMentionCommand request,
+        CancellationToken cancellationToken
+    )
     {
         var mention = new Mention
         {
