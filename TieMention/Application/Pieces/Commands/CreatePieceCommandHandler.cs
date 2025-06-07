@@ -7,10 +7,17 @@ namespace TieMention.Application.Pieces.Commands;
 public class CreatePieceCommandHandler : IRequestHandler<CreatePieceCommand, Piece>
 {
     private readonly IPieceRepository _repository;
+    private readonly IImageRepository _imageRepository;
 
-    public CreatePieceCommandHandler(IPieceRepository repository)
+    // public CreatePieceCommandHandler(IPieceRepository repository)
+    // {
+    //     _repository = repository;
+    // }
+
+    public CreatePieceCommandHandler(IPieceRepository repository, IImageRepository imageRepository)
     {
         _repository = repository;
+        _imageRepository = imageRepository;
     }
 
     public async Task<Piece> Handle(CreatePieceCommand request, CancellationToken cancellationToken)
@@ -27,7 +34,22 @@ public class CreatePieceCommandHandler : IRequestHandler<CreatePieceCommand, Pie
         };
 
         await _repository.AddAsync(piece);
+
+        var image = new Image
+        {
+            Id = Guid.NewGuid(),
+            Description = "",
+            Content = request.Image,
+            CreatedAt = DateTime.Now,
+            UpdatedAt = DateTime.Now,
+            Order = 1,
+            PieceId = piece.Id
+        };
+
+        await _imageRepository.AddAsync(image);
+
         await _repository.SaveChangesAsync();
+        await _imageRepository.SaveChangesAsync();
 
         return piece;
     }

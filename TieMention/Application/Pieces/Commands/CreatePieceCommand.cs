@@ -7,5 +7,6 @@ public record CreatePieceCommand(
     string Description,
     string Name,
     Guid Category,
-    string ReleaseYear
+    string ReleaseYear,
+    string Image
 ) : IRequest<Piece>;
