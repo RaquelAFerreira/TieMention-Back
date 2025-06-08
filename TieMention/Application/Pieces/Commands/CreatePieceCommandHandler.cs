@@ -30,7 +30,8 @@ public class CreatePieceCommandHandler : IRequestHandler<CreatePieceCommand, Pie
             Category = request.Category,
             CreatedAt = DateTime.Now,
             UpdatedAt = DateTime.Now,
-            ReleaseYear = request.ReleaseYear
+            ReleaseYear = request.ReleaseYear,
+            Slug = request.Name.ToSlug() + "-" + request.ReleaseYear
         };
 
         await _repository.AddAsync(piece);
