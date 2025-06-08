@@ -14,7 +14,7 @@ public class Image
 
     public Guid PieceId { get; set; }
 
-    public string MentionId { get; set; } = string.Empty;
+    public Guid MentionId { get; set; }
 
     public int Order { get; set; }
 }
