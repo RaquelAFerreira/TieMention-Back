@@ -18,4 +18,7 @@ public interface IPieceRepository
     Task<PaginatedResult<PieceGetByIdDto>> GetPagedAsync(string? name, int page, int pageSize, CancellationToken cancellationToken);
 
     Task<List<PieceGetMentionDto>> GetMentionersAsync(Guid mentionedPieceId, CancellationToken cancellationToken);
+
+    Task<string?> GetSlugAsync(Guid pieceId, CancellationToken cancellationToken);
+
 }

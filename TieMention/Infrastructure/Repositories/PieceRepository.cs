@@ -46,7 +46,10 @@ public class PieceRepository : IPieceRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<PieceGetByIdDto?> GetDetailsByIdAsync(String slug, CancellationToken cancellationToken)
+    public async Task<PieceGetByIdDto?> GetDetailsByIdAsync(
+        String slug,
+        CancellationToken cancellationToken
+    )
     {
         var query =
             from piece in _context.Piece
@@ -58,7 +61,7 @@ public class PieceRepository : IPieceRepository
                 on new { Id = piece.Category } equals new { category.Id }
                 into categorys
             from ctg in categorys.DefaultIfEmpty()
-            where piece.Slug == slug 
+            where piece.Slug == slug
             select new PieceGetByIdDto
             {
                 Id = piece.Id,
@@ -74,7 +77,12 @@ public class PieceRepository : IPieceRepository
         return await query.FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<PaginatedResult<PieceGetByIdDto>> GetPagedAsync(string? name, int page, int pageSize, CancellationToken cancellationToken)
+    public async Task<PaginatedResult<PieceGetByIdDto>> GetPagedAsync(
+        string? name,
+        int page,
+        int pageSize,
+        CancellationToken cancellationToken
+    )
     {
         var query =
             from piece in _context.Piece
@@ -115,7 +123,10 @@ public class PieceRepository : IPieceRepository
         };
     }
 
-    public async Task<PieceGetByIdDto?> GetMentionedsAsync(String slug, CancellationToken cancellationToken)
+    public async Task<PieceGetByIdDto?> GetMentionedsAsync(
+        String slug,
+        CancellationToken cancellationToken
+    )
     {
         var query =
             from piece in _context.Piece
@@ -127,7 +138,7 @@ public class PieceRepository : IPieceRepository
                 on new { Id = piece.Category } equals new { category.Id }
                 into categorys
             from ctg in categorys.DefaultIfEmpty()
-            where piece.Slug == slug 
+            where piece.Slug == slug
             select new PieceGetByIdDto
             {
                 Id = piece.Id,
@@ -142,15 +153,21 @@ public class PieceRepository : IPieceRepository
         return await query.FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<List<PieceGetMentionDto>> GetMentionersAsync(Guid mentionedPieceId, CancellationToken cancellationToken)
+    public async Task<List<PieceGetMentionDto>> GetMentionersAsync(
+        Guid mentionedPieceId,
+        CancellationToken cancellationToken
+    )
     {
         var query =
             from mention in _context.Mention
             where mention.MentionedPiece == mentionedPieceId
             join mentioner in _context.Piece on mention.MentionerPiece equals mentioner.Id
-            join image in _context.Image 
-                on new { PieceId = mentioner.Id, Order = 1 } 
-                equals new { image.PieceId, image.Order }
+            join image in _context.Image
+                on new { PieceId = mentioner.Id, Order = 1 } equals new
+                {
+                    image.PieceId,
+                    image.Order
+                }
                 into images
             from img in images.DefaultIfEmpty()
             select new PieceGetMentionDto
@@ -166,4 +183,9 @@ public class PieceRepository : IPieceRepository
         return await query.ToListAsync(cancellationToken);
     }
 
+    public async Task<string?> GetSlugAsync(Guid pieceId, CancellationToken cancellationToken)
+    {
+        var query = from piece in _context.Piece where piece.Id == pieceId select piece.Slug;
+        return await query.FirstOrDefaultAsync(cancellationToken);
+    }
 }
