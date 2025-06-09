@@ -22,6 +22,8 @@ public class CreatePieceCommandHandler : IRequestHandler<CreatePieceCommand, Pie
 
     public async Task<Piece> Handle(CreatePieceCommand request, CancellationToken cancellationToken)
     {
+        //Verify if there is another slug with the same name before
+
         var piece = new Piece
         {
             Id = Guid.NewGuid(),
