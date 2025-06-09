@@ -28,8 +28,14 @@ public class CreateMentionCommandHandler : IRequestHandler<CreateMentionCommand,
         CancellationToken cancellationToken
     )
     {
-        var mentionerSlug = await _pieceRepository.GetSlugAsync(request.MentionerPiece, cancellationToken);
-        var mentionedSlug = await _pieceRepository.GetSlugAsync(request.MentionedPiece, cancellationToken);
+        var mentionerSlug = await _pieceRepository.GetSlugAsync(
+            request.MentionerPiece,
+            cancellationToken
+        );
+        var mentionedSlug = await _pieceRepository.GetSlugAsync(
+            request.MentionedPiece,
+            cancellationToken
+        );
 
         //Get the mentioner and mentioned data like slug to make the mention slug
         var mention = new Mention
