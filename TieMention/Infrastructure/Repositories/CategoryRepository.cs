@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using TieMention.Domain.Entities;
 using TieMention.Domain.Interfaces;
 using TieMention.Infrastructure.Data;
-using TieMention.Application.Dtos.Pieces;
+using TieMention.Application.Dtos.Categories;
 using TieMention.Application.Dtos;
 
 namespace TieMention.Infrastructure.Repositories;
@@ -44,5 +44,16 @@ public class CategoryRepository : ICategoryRepository
     public async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<List<CategoryGetDto?>> GetAllCategoriesAsync(
+        CancellationToken cancellationToken
+    )
+    {
+        var query =
+            from category in _context.Category
+            select new CategoryGetDto { Id = category.Id, Description = category.Description };
+
+        return await query.ToListAsync(cancellationToken);
     }
 }

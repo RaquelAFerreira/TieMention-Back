@@ -16,6 +16,7 @@ public static class ServiceExtensions
     {
         app.MapMentionEndpoints();
         app.MapPieceEndpoints();
+        app.MapCategoryEndpoints();
         
         if (app.Environment.IsDevelopment())
         {
