@@ -13,9 +13,9 @@ public interface IPieceRepository
     Task DeleteAsync(Piece piece);
     Task SaveChangesAsync();
 
-    Task<PieceGetByIdDto?> GetDetailsByIdAsync(String slug, CancellationToken cancellationToken);
+    Task<PieceDetailsDto?> GetDetailsByIdAsync(String slug, CancellationToken cancellationToken);
 
-    Task<PaginatedResult<PieceGetByIdDto>> GetPagedAsync(string? name, int page, int pageSize, CancellationToken cancellationToken);
+    Task<PaginatedResult<PieceDetailsDto>> GetPagedAsync(string? name, int page, int pageSize, CancellationToken cancellationToken);
 
     Task<List<PieceGetMentionDto>> GetMentionersAsync(Guid mentionedPieceId, CancellationToken cancellationToken);
 

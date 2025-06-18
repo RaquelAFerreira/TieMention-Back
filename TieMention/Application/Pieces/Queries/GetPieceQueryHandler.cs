@@ -6,7 +6,7 @@ using TieMention.Application.Extensions;
 
 namespace TieMention.Application.Pieces.Queries;
 
-public class GetPieceQueryHandler : IRequestHandler<GetPieceQuery, PieceGetByIdDto?>
+public class GetPieceQueryHandler : IRequestHandler<GetPieceQuery, PieceDetailsDto?>
 {
     private readonly IPieceRepository _repository;
 
@@ -15,7 +15,7 @@ public class GetPieceQueryHandler : IRequestHandler<GetPieceQuery, PieceGetByIdD
         _repository = repository;
     }
 
-    public async Task<PieceGetByIdDto?> Handle(GetPieceQuery request, CancellationToken cancellationToken)
+    public async Task<PieceDetailsDto?> Handle(GetPieceQuery request, CancellationToken cancellationToken)
     {
         return await _repository.GetDetailsByIdAsync(request.Slug, cancellationToken);
     }

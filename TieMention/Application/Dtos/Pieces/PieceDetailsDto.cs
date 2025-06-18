@@ -1,6 +1,6 @@
 namespace TieMention.Application.Dtos.Pieces;
 
-public class PieceGetByIdDto
+public class PieceDetailsDto
 {
     public Guid Id { get; set; }
 

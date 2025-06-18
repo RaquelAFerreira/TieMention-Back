@@ -11,7 +11,7 @@ public static class PieceEndpoints
     {
         var group = app.MapGroup("/api/piece");
 
-        _ = group.MapGet(
+        group.MapGet(
             "/{slug}",
             async (String slug, IMediator mediator) =>
             {
@@ -20,7 +20,7 @@ public static class PieceEndpoints
             }
         );
 
-        _ = group.MapPost(
+        group.MapPost(
             "/",
             async ([FromBody] CreatePieceCommand command, IMediator mediator) =>
             {
@@ -29,7 +29,7 @@ public static class PieceEndpoints
             }
         );
 
-        _ = group.MapGet(
+        group.MapGet(
             "/list",
             async ([AsParameters] GetPiecesQuery query, IMediator mediator) =>
             {
@@ -38,7 +38,7 @@ public static class PieceEndpoints
             }
         );
 
-        _ = group.MapGet(
+        group.MapGet(
             "/mentioners/{id}",
             async (Guid id, IMediator mediator) =>
             {

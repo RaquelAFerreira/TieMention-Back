@@ -86,7 +86,7 @@ public class MentionRepository : IMentionRepository
                 Id = mention.Id,
                 Description = mention.Description,
                 Image = mImg != null ? mImg.Content : null,
-                MentionedPiece = new PieceGetByIdDto
+                MentionedPiece = new PieceDetailsDto
                 {
                     Id = mentioned.Id,
                     Name = mentioned.Name,
@@ -95,7 +95,7 @@ public class MentionRepository : IMentionRepository
                     Category = mentionedCategory.Description,
                     Image = mentionedImg != null ? mentionedImg.Content : null
                 },
-                MentionerPiece = new PieceGetByIdDto
+                MentionerPiece = new PieceDetailsDto
                 {
                     Id = mentioner.Id,
                     Name = mentioner.Name,
