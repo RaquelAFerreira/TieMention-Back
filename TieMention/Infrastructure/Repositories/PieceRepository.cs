@@ -46,7 +46,7 @@ public class PieceRepository : IPieceRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<PieceGetByIdDto?> GetDetailsByIdAsync(
+    public async Task<PieceDetailsDto?> GetDetailsByIdAsync(
         String slug,
         CancellationToken cancellationToken
     )
@@ -62,7 +62,7 @@ public class PieceRepository : IPieceRepository
                 into categorys
             from ctg in categorys.DefaultIfEmpty()
             where piece.Slug == slug
-            select new PieceGetByIdDto
+            select new PieceDetailsDto
             {
                 Id = piece.Id,
                 Name = piece.Name,
@@ -77,7 +77,7 @@ public class PieceRepository : IPieceRepository
         return await query.FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<PaginatedResult<PieceGetByIdDto>> GetPagedAsync(
+    public async Task<PaginatedResult<PieceDetailsDto>> GetPagedAsync(
         string? name,
         int page,
         int pageSize,
@@ -96,7 +96,7 @@ public class PieceRepository : IPieceRepository
             from ctg in categorys.DefaultIfEmpty()
             where string.IsNullOrWhiteSpace(name) || EF.Functions.ILike(piece.Name, $"%{name}%")
             orderby piece.Name
-            select new PieceGetByIdDto
+            select new PieceDetailsDto
             {
                 Id = piece.Id,
                 Name = piece.Name,
@@ -114,7 +114,7 @@ public class PieceRepository : IPieceRepository
             .Take(pageSize)
             .ToListAsync(cancellationToken);
 
-        return new PaginatedResult<PieceGetByIdDto>
+        return new PaginatedResult<PieceDetailsDto>
         {
             Page = page,
             PageSize = pageSize,
@@ -123,7 +123,7 @@ public class PieceRepository : IPieceRepository
         };
     }
 
-    public async Task<PieceGetByIdDto?> GetMentionedsAsync(
+    public async Task<PieceDetailsDto?> GetMentionedsAsync(
         String slug,
         CancellationToken cancellationToken
     )
@@ -139,7 +139,7 @@ public class PieceRepository : IPieceRepository
                 into categorys
             from ctg in categorys.DefaultIfEmpty()
             where piece.Slug == slug
-            select new PieceGetByIdDto
+            select new PieceDetailsDto
             {
                 Id = piece.Id,
                 Name = piece.Name,

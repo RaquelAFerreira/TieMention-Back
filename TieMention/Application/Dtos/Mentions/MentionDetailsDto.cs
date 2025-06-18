@@ -10,7 +10,7 @@ public class MentionDetailsDto
 
     public string Description { get; set; } = default!;
 
-    public PieceGetByIdDto MentionerPiece { get; set; } = default!;
+    public PieceDetailsDto MentionerPiece { get; set; } = default!;
 
-    public PieceGetByIdDto MentionedPiece { get; set; } = default!;
+    public PieceDetailsDto MentionedPiece { get; set; } = default!;
 }

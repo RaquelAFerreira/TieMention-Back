@@ -6,7 +6,7 @@ using TieMention.Application.Dtos;
 
 namespace TieMention.Application.Pieces.Queries;
 
-public class GetPiecesQueryHandler : IRequestHandler<GetPiecesQuery, PaginatedResult<PieceGetByIdDto>>
+public class GetPiecesQueryHandler : IRequestHandler<GetPiecesQuery, PaginatedResult<PieceDetailsDto>>
 {
     private readonly IPieceRepository _repository;
 
@@ -15,7 +15,7 @@ public class GetPiecesQueryHandler : IRequestHandler<GetPiecesQuery, PaginatedRe
         _repository = repository;
     }
 
-    public async Task<PaginatedResult<PieceGetByIdDto>> Handle(GetPiecesQuery request, CancellationToken cancellationToken)
+    public async Task<PaginatedResult<PieceDetailsDto>> Handle(GetPiecesQuery request, CancellationToken cancellationToken)
     {
         return await _repository.GetPagedAsync(request.Name, request.Page, request.PageSize, cancellationToken);
     }

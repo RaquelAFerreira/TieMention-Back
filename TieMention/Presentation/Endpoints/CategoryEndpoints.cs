@@ -10,7 +10,7 @@ public static class CategoryEndpoints
     {
         var group = app.MapGroup("/api/category");
 
-        _ = group.MapGet(
+        group.MapGet(
             "/",
             async (IMediator mediator) =>
             {

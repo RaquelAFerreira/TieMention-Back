@@ -6,9 +6,9 @@ namespace TieMention.Application.Extensions;
 
 public static class PieceExtensions
 {
-    public static PieceGetByIdDto ToPieceGetByIdDto(this Piece piece)
+    public static PieceDetailsDto ToPieceDetailsDto(this Piece piece)
     {
-        return new PieceGetByIdDto
+        return new PieceDetailsDto
         {
             Description = piece.Description,
             ReleaseYear = piece.ReleaseYear,
