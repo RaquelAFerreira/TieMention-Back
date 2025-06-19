@@ -13,5 +13,5 @@ public interface ICategoryRepository
     Task DeleteAsync(Category category);
     Task SaveChangesAsync();
 
-    Task<List<CategoryGetDto?>> GetAllCategoriesAsync(CancellationToken cancellationToken);
+    Task<List<CategoryDetailsDto?>> GetAllCategoriesAsync(CancellationToken cancellationToken);
 }
