@@ -1,14 +1,8 @@
 namespace TieMention.Domain.Entities;
 
-public class Mention
+public class Mention : BaseEntity
 {
-    public Guid Id { get; set; }
-
     public string Description { get; set; } = string.Empty;
-
-    public DateTime CreatedAt { get; set; }
-
-    public DateTime UpdatedAt { get; set; }
 
     public Guid MentionerPiece { get; set; }
 
