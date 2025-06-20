@@ -183,9 +183,15 @@ public class PieceRepository : IPieceRepository
         return await query.ToListAsync(cancellationToken);
     }
 
-    public async Task<string?> GetSlugAsync(Guid pieceId, CancellationToken cancellationToken)
+    public async Task<string?> GetSlugByIdAsync(Guid pieceId, CancellationToken cancellationToken)
     {
         var query = from piece in _context.Piece where piece.Id == pieceId select piece.Slug;
         return await query.FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<List<Guid>> GetIdBySlugAsync(string slug, CancellationToken cancellationToken)
+    {
+        var query = from piece in _context.Piece where piece.Slug == slug select piece.Id;
+        return await query.ToListAsync(cancellationToken);
     }
 }

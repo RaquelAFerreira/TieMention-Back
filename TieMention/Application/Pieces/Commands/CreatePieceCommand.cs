@@ -9,4 +9,4 @@ public record CreatePieceCommand(
     Guid Category,
     string ReleaseYear,
     string Image
-) : IRequest<Piece>;
+) : IRequest<int>;
