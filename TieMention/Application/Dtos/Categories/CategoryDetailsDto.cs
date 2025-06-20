@@ -1,6 +1,6 @@
 namespace TieMention.Application.Dtos.Categories;
 
-public class CategoryGetDto
+public class CategoryDetailsDto
 {
     public Guid Id { get; set; }
 

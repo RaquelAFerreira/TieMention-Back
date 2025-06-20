@@ -1,18 +1,14 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using TieMention.Domain.Entities;
 using TieMention.Domain.Interfaces;
 
 namespace TieMention.Application.Pieces.Commands;
 
-public class CreatePieceCommandHandler : IRequestHandler<CreatePieceCommand, Piece>
+public class CreatePieceCommandHandler : IRequestHandler<CreatePieceCommand, int>
 {
     private readonly IPieceRepository _repository;
     private readonly IImageRepository _imageRepository;
-
-    // public CreatePieceCommandHandler(IPieceRepository repository)
-    // {
-    //     _repository = repository;
-    // }
 
     public CreatePieceCommandHandler(IPieceRepository repository, IImageRepository imageRepository)
     {
@@ -20,40 +16,44 @@ public class CreatePieceCommandHandler : IRequestHandler<CreatePieceCommand, Pie
         _imageRepository = imageRepository;
     }
 
-    public async Task<Piece> Handle(CreatePieceCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreatePieceCommand request, CancellationToken cancellationToken)
     {
-        //Verify if there is another slug with the same name before
+        string slug = Piece.GenerateSlug(request.Name, request.ReleaseYear);
 
-        var piece = new Piece
+        List<Guid> slugsIds = await _repository.GetIdBySlugAsync(slug, cancellationToken);
+
+        if (slugsIds.Count() != 0)
+            slug = $"{slug}-{slugsIds.Count()}";
+
+        var piece = Piece.Create(
+            request.Name,
+            request.Description,
+            request.Category,
+            request.ReleaseYear,
+            slug
+        );
+
+        var image = Image.Create(
+            request.Image,
+            piece.Id,
+            new Guid(),
+            description: "",
+            order: 1
+        );
+
+        // Add transaction security later
+        try
         {
-            Id = Guid.NewGuid(),
-            Description = request.Description,
-            Name = request.Name,
-            Category = request.Category,
-            CreatedAt = DateTime.Now,
-            UpdatedAt = DateTime.Now,
-            ReleaseYear = request.ReleaseYear,
-            Slug = request.Name.ToSlug() + "-" + request.ReleaseYear
-        };
+            await _repository.AddAsync(piece);
+            await _imageRepository.AddAsync(image);
+            await _repository.SaveChangesAsync();
+            await _imageRepository.SaveChangesAsync();
 
-        await _repository.AddAsync(piece);
-
-        var image = new Image
+            return 0;
+        }
+        catch
         {
-            Id = Guid.NewGuid(),
-            Description = "",
-            Content = request.Image,
-            CreatedAt = DateTime.Now,
-            UpdatedAt = DateTime.Now,
-            Order = 1,
-            PieceId = piece.Id
-        };
-
-        await _imageRepository.AddAsync(image);
-
-        await _repository.SaveChangesAsync();
-        await _imageRepository.SaveChangesAsync();
-
-        return piece;
+            return 1;
+        }
     }
 }

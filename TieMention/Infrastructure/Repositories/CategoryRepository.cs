@@ -46,13 +46,13 @@ public class CategoryRepository : ICategoryRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<List<CategoryGetDto?>> GetAllCategoriesAsync(
+    public async Task<List<CategoryDetailsDto?>> GetAllCategoriesAsync(
         CancellationToken cancellationToken
     )
     {
         var query =
             from category in _context.Category
-            select new CategoryGetDto { Id = category.Id, Description = category.Description };
+            select new CategoryDetailsDto { Id = category.Id, Description = category.Description };
 
         return await query.ToListAsync(cancellationToken);
     }

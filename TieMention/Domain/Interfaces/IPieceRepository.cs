@@ -19,6 +19,8 @@ public interface IPieceRepository
 
     Task<List<PieceGetMentionDto>> GetMentionersAsync(Guid mentionedPieceId, CancellationToken cancellationToken);
 
-    Task<string?> GetSlugAsync(Guid pieceId, CancellationToken cancellationToken);
+    Task<string?> GetSlugByIdAsync(Guid pieceId, CancellationToken cancellationToken);
+
+    Task<List<Guid>> GetIdBySlugAsync(string slug, CancellationToken cancellationToken);
 
 }

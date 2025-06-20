@@ -25,7 +25,7 @@ public static class PieceEndpoints
             async ([FromBody] CreatePieceCommand command, IMediator mediator) =>
             {
                 var piece = await mediator.Send(command);
-                return Results.Created($"/api/piece/{piece.Id}", piece);
+                return piece;
             }
         );
 

@@ -28,11 +28,11 @@ public class CreateMentionCommandHandler : IRequestHandler<CreateMentionCommand,
         CancellationToken cancellationToken
     )
     {
-        var mentionerSlug = await _pieceRepository.GetSlugAsync(
+        var mentionerSlug = await _pieceRepository.GetSlugByIdAsync(
             request.MentionerPiece,
             cancellationToken
         );
-        var mentionedSlug = await _pieceRepository.GetSlugAsync(
+        var mentionedSlug = await _pieceRepository.GetSlugByIdAsync(
             request.MentionedPiece,
             cancellationToken
         );
