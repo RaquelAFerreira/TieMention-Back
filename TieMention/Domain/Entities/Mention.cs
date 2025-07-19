@@ -6,11 +6,11 @@ public class Mention : BaseEntity
 
     public Guid MentionerPieceId { get; set; }
 
-    // public Mention MentionerPiece { get; set; }
+    public Piece MentionerPiece { get; set; }
 
     public Guid MentionedPieceId { get; set; }
 
-    // public Mention MentionedPiece { get; set; }
+    public Piece MentionedPiece { get; set; }
 
     public bool IsApproved { get; set; } = false;
 
