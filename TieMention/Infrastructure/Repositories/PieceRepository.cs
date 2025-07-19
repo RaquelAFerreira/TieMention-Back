@@ -160,8 +160,8 @@ public class PieceRepository : IPieceRepository
     {
         var query =
             from mention in _context.Mention
-            where mention.MentionedPiece == mentionedPieceId
-            join mentioner in _context.Piece on mention.MentionerPiece equals mentioner.Id
+            where mention.MentionedPieceId == mentionedPieceId
+            join mentioner in _context.Piece on mention.MentionerPieceId equals mentioner.Id
             join image in _context.Image
                 on new { PieceId = mentioner.Id, Order = 1 } equals new
                 {

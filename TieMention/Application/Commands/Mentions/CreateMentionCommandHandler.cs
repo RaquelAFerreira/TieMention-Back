@@ -29,11 +29,11 @@ public class CreateMentionCommandHandler : IRequestHandler<CreateMentionCommand,
     )
     {
         var mentionerSlug = await _pieceRepository.GetSlugByIdAsync(
-            request.MentionerPiece,
+            request.MentionerPieceId,
             cancellationToken
         );
         var mentionedSlug = await _pieceRepository.GetSlugByIdAsync(
-            request.MentionedPiece,
+            request.MentionedPieceId,
             cancellationToken
         );
 
@@ -45,8 +45,8 @@ public class CreateMentionCommandHandler : IRequestHandler<CreateMentionCommand,
             UpdatedAt = DateTime.Now,
             Description = request.Description,
             // IsApproved = request.IsApproved,
-            MentionerPiece = request.MentionerPiece,
-            MentionedPiece = request.MentionedPiece,
+            MentionerPieceId = request.MentionerPieceId,
+            MentionedPieceId = request.MentionedPieceId,
             Slug = mentionerSlug + "-mentions-" + mentionedSlug
         };
 

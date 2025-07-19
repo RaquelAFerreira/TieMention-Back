@@ -9,7 +9,7 @@ public static class StringExtensions
         if (string.IsNullOrEmpty(input))
             return string.Empty;
 
-        string normalizedString = input.Normalize(NormalizationForm.FormD);
+        string normalizedString = input.Normalize(NormalizationForm.FormD); //DEV
         StringBuilder stringBuilder = new StringBuilder();
 
         foreach (char c in normalizedString)
