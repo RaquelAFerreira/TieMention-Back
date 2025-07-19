@@ -55,10 +55,10 @@ public class MentionRepository : IMentionRepository
         var query =
             from mention in _context.Mention
             where mention.Slug == Slug
-            join mentioned in _context.Piece on mention.MentionedPiece equals mentioned.Id
+            join mentioned in _context.Piece on mention.MentionedPieceId equals mentioned.Id
             join mentionedCategory in _context.Category
                 on mentioned.Category equals mentionedCategory.Id
-            join mentioner in _context.Piece on mention.MentionerPiece equals mentioner.Id
+            join mentioner in _context.Piece on mention.MentionerPieceId equals mentioner.Id
             join mentionerCategory in _context.Category
                 on mentioner.Category equals mentionerCategory.Id 
             join mentionedImage in _context.Image
