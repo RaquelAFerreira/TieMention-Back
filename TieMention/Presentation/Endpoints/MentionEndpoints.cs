@@ -16,7 +16,7 @@ public static class MentionEndpoints
             "/{id}",
             async (string id, IMediator mediator) =>
             {
-                var mention = await mediator.Send(new GetMentionQuery(id));
+                var mention = await mediator.Send(new GetMentionDetailsQuery(id));
                 return mention is not null ? Results.Ok(mention) : Results.NotFound();
             }
         );
