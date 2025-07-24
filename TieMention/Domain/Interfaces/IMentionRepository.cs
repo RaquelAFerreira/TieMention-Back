@@ -12,6 +12,4 @@ public interface IMentionRepository
     Task UpdateAsync(Mention mention);
     Task DeleteAsync(Mention mention);
     Task SaveChangesAsync();
-
-    Task<MentionDetailsDto?> GetMentionByIdAsync(String Slug, CancellationToken cancellationToken);
 }
