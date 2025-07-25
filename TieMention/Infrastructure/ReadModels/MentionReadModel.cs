@@ -8,7 +8,7 @@ using TieMention.Application.Dtos;
 
 namespace TieMention.Infrastructure.Repositories;
 
-public class MentionReadModel : IMentionDetailsReadModel
+public class MentionReadModel : IMentionReadModel
 {
     private readonly AppDbContext _context;
 

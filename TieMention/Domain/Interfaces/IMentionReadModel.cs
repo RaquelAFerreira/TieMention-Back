@@ -4,7 +4,7 @@ using TieMention.Application.Dtos.Mentions;
 
 namespace TieMention.Domain.Interfaces;
 
-public interface IMentionDetailsReadModel
+public interface IMentionReadModel
 {
     Task<MentionDetailsDto?> GetMentionByIdAsync(string Slug, CancellationToken cancellationToken);
 }
