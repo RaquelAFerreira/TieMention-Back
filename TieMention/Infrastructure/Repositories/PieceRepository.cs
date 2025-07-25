@@ -47,7 +47,7 @@ public class PieceRepository : IPieceRepository
     }
 
     public async Task<PieceDetailsDto?> GetDetailsByIdAsync(
-        String slug,
+        string slug,
         CancellationToken cancellationToken
     )
     {
@@ -124,7 +124,7 @@ public class PieceRepository : IPieceRepository
     }
 
     public async Task<PieceDetailsDto?> GetMentionedsAsync(
-        String slug,
+        string slug,
         CancellationToken cancellationToken
     )
     {

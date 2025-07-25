@@ -13,7 +13,7 @@ public interface IPieceRepository
     Task DeleteAsync(Piece piece);
     Task SaveChangesAsync();
 
-    Task<PieceDetailsDto?> GetDetailsByIdAsync(String slug, CancellationToken cancellationToken);
+    Task<PieceDetailsDto?> GetDetailsByIdAsync(string slug, CancellationToken cancellationToken);
 
     Task<PaginatedResult<PieceDetailsDto>> GetPagedAsync(string? name, int page, int pageSize, CancellationToken cancellationToken);
 

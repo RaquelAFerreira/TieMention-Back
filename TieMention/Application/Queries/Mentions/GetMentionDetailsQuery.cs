@@ -4,4 +4,4 @@ using TieMention.Application.Dtos.Mentions;
 
 namespace TieMention.Application.Mentions.Queries;
 
-public record GetMentionDetailsQuery(String Slug) : IRequest<MentionDetailsDto?>;
+public record GetMentionDetailsQuery(string Slug) : IRequest<MentionDetailsDto?>;
