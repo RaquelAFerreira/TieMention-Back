@@ -8,9 +8,9 @@ namespace TieMention.Application.Mentions.Queries;
 
 public class GetMentionDetailsQueryHandler : IRequestHandler<GetMentionDetailsQuery, MentionDetailsDto?>
 {
-    private readonly IGetMentionDetailsReadModel _readModel;
+    private readonly IMentionReadModel _readModel;
 
-    public GetMentionDetailsQueryHandler(IGetMentionDetailsReadModel readModel)
+    public GetMentionDetailsQueryHandler(IMentionReadModel readModel)
     {
         _readModel = readModel;
     }

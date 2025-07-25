@@ -8,11 +8,11 @@ using TieMention.Application.Dtos;
 
 namespace TieMention.Infrastructure.Repositories;
 
-public class GetMentionDetailsReadModel : IGetMentionDetailsReadModel
+public class MentionReadModel : IMentionReadModel
 {
     private readonly AppDbContext _context;
 
-    public GetMentionDetailsReadModel(AppDbContext context)
+    public MentionReadModel(AppDbContext context)
     {
         _context = context;
     }
