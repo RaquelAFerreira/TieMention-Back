@@ -8,11 +8,15 @@ namespace TieMention.Application.Pieces.Commands;
 public class CreatePieceCommandHandler : IRequestHandler<CreatePieceCommand, int>
 {
     private readonly IPieceRepository _repository;
+
+    private readonly IPieceReadModel _pieceReadModel;
+
     private readonly IImageRepository _imageRepository;
 
-    public CreatePieceCommandHandler(IPieceRepository repository, IImageRepository imageRepository)
+    public CreatePieceCommandHandler(IPieceRepository repository, IPieceReadModel pieceReadModel, IImageRepository imageRepository)
     {
         _repository = repository;
+        _pieceReadModel = pieceReadModel;
         _imageRepository = imageRepository;
     }
 
@@ -20,7 +24,7 @@ public class CreatePieceCommandHandler : IRequestHandler<CreatePieceCommand, int
     {
         string slug = Piece.GenerateSlug(request.Name, request.ReleaseYear);
 
-        List<Guid> slugsIds = await _repository.GetIdBySlugAsync(slug, cancellationToken);
+        List<Guid> slugsIds = await _pieceReadModel.GetIdBySlugAsync(slug, cancellationToken);
 
         if (slugsIds.Count() != 0)
             slug = $"{slug}-{slugsIds.Count()}";

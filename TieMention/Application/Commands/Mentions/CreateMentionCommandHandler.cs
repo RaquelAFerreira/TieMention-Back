@@ -8,18 +8,18 @@ public class CreateMentionCommandHandler : IRequestHandler<CreateMentionCommand,
 {
     private readonly IMentionRepository _repository;
 
-    private readonly IPieceRepository _pieceRepository;
+    private readonly IPieceReadModel _pieceReadModel;
 
     private readonly IImageRepository _imageRepository;
 
     public CreateMentionCommandHandler(
         IMentionRepository repository,
-        IPieceRepository pieceRepository,
+        IPieceReadModel pieceReadModel,
         IImageRepository imageRepository
     )
     {
         _repository = repository;
-        _pieceRepository = pieceRepository;
+        _pieceReadModel = pieceReadModel;
         _imageRepository = imageRepository;
     }
 
@@ -28,11 +28,11 @@ public class CreateMentionCommandHandler : IRequestHandler<CreateMentionCommand,
         CancellationToken cancellationToken
     )
     {
-        var mentionerSlug = await _pieceRepository.GetSlugByIdAsync(
+        var mentionerSlug = await _pieceReadModel.GetSlugByIdAsync(
             request.MentionerPieceId,
             cancellationToken
         );
-        var mentionedSlug = await _pieceRepository.GetSlugByIdAsync(
+        var mentionedSlug = await _pieceReadModel.GetSlugByIdAsync(
             request.MentionedPieceId,
             cancellationToken
         );

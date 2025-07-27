@@ -8,15 +8,15 @@ namespace TieMention.Application.Pieces.Queries;
 
 public class GetPieceQueryHandler : IRequestHandler<GetPieceQuery, PieceDetailsDto?>
 {
-    private readonly IPieceRepository _repository;
+    private readonly IPieceReadModel _readModel;
 
-    public GetPieceQueryHandler(IPieceRepository repository)
+    public GetPieceQueryHandler(IPieceReadModel readModel)
     {
-        _repository = repository;
+        _readModel = readModel;
     }
 
     public async Task<PieceDetailsDto?> Handle(GetPieceQuery request, CancellationToken cancellationToken)
     {
-        return await _repository.GetDetailsByIdAsync(request.Slug, cancellationToken);
+        return await _readModel.GetDetailsByIdAsync(request.Slug, cancellationToken);
     }
 }
