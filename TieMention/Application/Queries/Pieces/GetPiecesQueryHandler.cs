@@ -8,15 +8,15 @@ namespace TieMention.Application.Pieces.Queries;
 
 public class GetPiecesQueryHandler : IRequestHandler<GetPiecesQuery, PaginatedResult<PieceDetailsDto>>
 {
-    private readonly IPieceRepository _repository;
+    private readonly IPieceReadModel _readModel;
 
-    public GetPiecesQueryHandler(IPieceRepository repository)
+    public GetPiecesQueryHandler(IPieceReadModel readModel)
     {
-        _repository = repository;
+        _readModel = readModel;
     }
 
     public async Task<PaginatedResult<PieceDetailsDto>> Handle(GetPiecesQuery request, CancellationToken cancellationToken)
     {
-        return await _repository.GetPagedAsync(request.Name, request.Page, request.PageSize, cancellationToken);
+        return await _readModel.GetPagedAsync(request.Name, request.Page, request.PageSize, cancellationToken);
     }
 }

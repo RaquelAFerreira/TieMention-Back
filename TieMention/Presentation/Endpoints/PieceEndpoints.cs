@@ -13,7 +13,7 @@ public static class PieceEndpoints
 
         group.MapGet(
             "/{slug}",
-            async (String slug, IMediator mediator) =>
+            async (string slug, IMediator mediator) =>
             {
                 var piece = await mediator.Send(new GetPieceQuery(slug));
                 return piece is not null ? Results.Ok(piece) : Results.NotFound();

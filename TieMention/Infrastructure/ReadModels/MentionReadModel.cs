@@ -18,7 +18,7 @@ public class MentionReadModel : IMentionReadModel
     }
 
     public async Task<MentionDetailsDto?> GetMentionByIdAsync(
-        String Slug,
+        string Slug,
         CancellationToken cancellationToken
     )
     {

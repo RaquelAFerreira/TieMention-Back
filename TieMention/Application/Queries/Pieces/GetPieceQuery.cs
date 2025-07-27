@@ -4,4 +4,4 @@ using TieMention.Application.Dtos.Pieces;
 
 namespace TieMention.Application.Pieces.Queries;
 
-public record GetPieceQuery(String Slug) : IRequest<PieceDetailsDto?>;
+public record GetPieceQuery(string Slug) : IRequest<PieceDetailsDto?>;

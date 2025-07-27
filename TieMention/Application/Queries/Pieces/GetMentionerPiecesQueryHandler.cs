@@ -8,15 +8,15 @@ namespace TieMention.Application.Pieces.Queries;
 
 public class GetMentionerPiecesQueryHandler : IRequestHandler<GetMentionerPiecesQuery, List<PieceGetMentionDto>>
 {
-    private readonly IPieceRepository _repository;
+    private readonly IPieceReadModel _readModel;
 
-    public GetMentionerPiecesQueryHandler(IPieceRepository repository)
+    public GetMentionerPiecesQueryHandler(IPieceReadModel readModel)
     {
-        _repository = repository;
+        _readModel = readModel;
     }
 
     public async Task<List<PieceGetMentionDto>> Handle(GetMentionerPiecesQuery request, CancellationToken cancellationToken)
     {
-        return await _repository.GetMentionersAsync(request.MentionedPieceId, cancellationToken);
+        return await _readModel.GetMentionersAsync(request.MentionedPieceId, cancellationToken);
     }
 }
