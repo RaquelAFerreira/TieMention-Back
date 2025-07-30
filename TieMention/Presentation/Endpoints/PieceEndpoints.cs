@@ -46,5 +46,14 @@ public static class PieceEndpoints
                 return piece is not null ? Results.Ok(piece) : Results.NotFound();
             }
         );
+
+        group.MapGet(
+            "/search/{name}",
+            async (string name, IMediator mediator) =>
+            {
+                var piece = await mediator.Send(new GetPieceSearchQuery(name));
+                return piece is not null ? Results.Ok(piece) : Results.NotFound();
+            }
+        );
     }
 }

@@ -164,4 +164,12 @@ public class PieceReadModel : IPieceReadModel
         var query = from piece in _context.Piece where piece.Slug == slug select piece.Id;
         return await query.ToListAsync(cancellationToken);
     }
+
+    public async Task<List<PieceNameDto?>> GetPieceByNameAsync(string name, CancellationToken cancellationToken)
+    {
+        return await _context.Piece
+            .Where(p => EF.Functions.Like(p.Name.ToLower(), $"%{name.ToLower()}%"))
+            .Select(p => new PieceNameDto { Id = p.Id, Name = p.Name })
+            .ToListAsync(cancellationToken);
+    }
 }
