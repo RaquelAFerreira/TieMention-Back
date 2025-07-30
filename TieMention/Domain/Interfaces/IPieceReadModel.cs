@@ -15,4 +15,6 @@ public interface IPieceReadModel
     Task<string?> GetSlugByIdAsync(Guid pieceId, CancellationToken cancellationToken);
 
     Task<List<Guid>> GetIdBySlugAsync(string slug, CancellationToken cancellationToken);
+
+    Task<List<PieceNameDto?>> GetPieceByNameAsync(string Name, CancellationToken cancellationToken);
 }

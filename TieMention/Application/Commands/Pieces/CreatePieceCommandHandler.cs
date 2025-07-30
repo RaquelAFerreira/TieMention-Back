@@ -13,7 +13,11 @@ public class CreatePieceCommandHandler : IRequestHandler<CreatePieceCommand, int
 
     private readonly IImageRepository _imageRepository;
 
-    public CreatePieceCommandHandler(IPieceRepository repository, IPieceReadModel pieceReadModel, IImageRepository imageRepository)
+    public CreatePieceCommandHandler(
+        IPieceRepository repository,
+        IPieceReadModel pieceReadModel,
+        IImageRepository imageRepository
+    )
     {
         _repository = repository;
         _pieceReadModel = pieceReadModel;
@@ -37,13 +41,7 @@ public class CreatePieceCommandHandler : IRequestHandler<CreatePieceCommand, int
             slug
         );
 
-        var image = Image.Create(
-            request.Image,
-            piece.Id,
-            new Guid(),
-            description: "",
-            order: 1
-        );
+        var image = Image.Create(request.Image, piece.Id, new Guid(), description: "", order: 1);
 
         // Add transaction security later
         try
